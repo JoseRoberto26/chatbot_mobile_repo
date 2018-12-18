@@ -3,6 +3,7 @@ package com.example.joseleite.chatbot_mobile
 import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.github.bassaer.chatmessageview.model.ChatUser
 import com.github.bassaer.chatmessageview.model.Message
@@ -18,21 +19,22 @@ class MainActivity : AppCompatActivity() {
         private const val ACCESS_TOKEN = " 07e8e851ca5d4215ac88c346cbdf9b4a"
     }
 
-
-    val human = ChatUser(
-            1,
-            "You",
-            BitmapFactory.decodeResource(resources,
-                    R.drawable.ic_account_circle)
-    )
-
-    val agent = ChatUser(
-            2,
-            "Agent",
-            BitmapFactory.decodeResource(resources,
-                    R.drawable.ic_account_circle)
-    )
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val human = ChatUser(
+                1,
+                "You",
+                BitmapFactory.decodeResource(resources,
+                        R.drawable.ic_account_circle)
+        )
+
+        val agent = ChatUser(
+                2,
+                "Agent",
+                BitmapFactory.decodeResource(resources,
+                        R.drawable.ic_account_circle)
+        )
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         FuelManager.instance.baseParams = listOf(
                 "v" to "20170712",                  // latest protocol
                 "sessionId" to UUID.randomUUID(),   // random ID
-                "lang" to "en"                      // English language
+                "lang" to "pt"                      // English language
         )
         val my_chat_view: ChatView = findViewById(R.id.my_chat_view) as ChatView
         my_chat_view.setOnClickSendButtonListener(
@@ -60,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                     Fuel.get("/query",
                             listOf("query" to my_chat_view.inputText))
                             .responseJson { _, _, result ->
-                                val reply = result.get().obj()
+                                val reply = result.get().obj()//.toString
                                         .getJSONObject("result")
                                         .getJSONObject("fulfillment")
                                         .getString("speech")
