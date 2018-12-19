@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 "Authorization" to "Bearer $ACCESS_TOKEN"
         )
         FuelManager.instance.basePath =
-                "https://api.dialogflow.com/v2/"
+                "https://api.dialogflow.com/v1/"
 
         FuelManager.instance.baseParams = listOf(
                 "v" to "20170712",                  // latest protocol
